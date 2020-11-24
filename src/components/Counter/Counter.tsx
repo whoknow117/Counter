@@ -13,8 +13,8 @@ type PropsType = {
 const Counter: React.FC<PropsType> = ({state,error,maxNum,minNum,mode}) => {
 
     return <div className={classes.wrapper}>
-        <div className={error ? classes.error : classes.inc}>
-            { mode   ? state : "set number" }
+        <div className={state === maxNum ? classes.error : classes.inc}>
+            { mode   ? state : <span>{error}</span> }
             {/*{ error && error}*/}
         </div>
     </div>

@@ -37,25 +37,54 @@ function App() {
     }
 
     const minNum = (e: ChangeEvent<HTMLInputElement>) => {
-        setState(0)
-        setMode(false);
+
+
+
+
+        if(minNumber >= maxNumber -1) {
+            setMode(false)
+            setError("inCorrectValue")
+        }
+        else if(minNumber < maxNumber) {
+            setMode(false)
+            setError("SetValue")
+        }
         setMinNumber(+e.currentTarget.value)
+
     }
 
     const maxNum = (e: ChangeEvent<HTMLInputElement>) => {
         setMode(false);
+
+        if(maxNumber <= minNumber ) {
+            setMode(false)
+            setError("inCorrectValue")
+        }
+        else if(maxNumber > minNumber) {
+            setMode(false)
+            setError("SetValue")
+        }
         setMaxNumber(+e.currentTarget.value)
     }
     const setNumbers = () => {
 
         if(minNumber > -1) {
-            setMode(true)
+
             setState(minNumber)
         }
         if(minNumber === maxNumber) {
+
+
+
+        }
+        if(minNumber > maxNumber) {
             setMode(false)
-            setError("Incorrect value!")
-            setState(0)
+
+
+        }
+        if(minNumber < 0) {
+            setMode(false)
+
         }
 
     }
@@ -64,10 +93,11 @@ function App() {
         <div className="counter">
             <div className={classes.setNumbersBlock}>
                     <div>
-                        <input className={minNumber === maxNumber ? classes.errorInput : ''} value={minNumber} onChange={minNum} type="number"/>
-                        <input  className={minNumber === maxNumber ? classes.errorInput : ''} value={maxNumber} onChange={maxNum} type="number"/>
+                        <input  className={minNumber >= maxNumber ||  minNumber < 0 ? classes.errorInput : ''} value={maxNumber} onChange={maxNum} type="number"/> MAX
+                        <input className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''} value={minNumber} onChange={minNum} type="number"/> MIN
+
                     </div>
-                    <button onClick={setNumbers}>set</button>
+                    <button disabled={mode} onClick={setNumbers}>set</button>
             </div>
             <div className={classes.output}>
                 <Counter state={state} error={error} maxNum={maxNumber} minNum={minNumber} mode={mode}/>
