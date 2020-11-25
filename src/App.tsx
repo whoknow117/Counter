@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useState, useEffect } from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import CounterButtons from "./components/CounterButtons/CounterButtons";
@@ -8,13 +8,23 @@ import classes from "./App.module.scss";
 function App() {
 
 
-    const [minNumber, setMinNumber] = useState<number>(3);
-    const [maxNumber, setMaxNumber] = useState<number>(5);
+    const [minNumber, setMinNumber] = useState<number>(0);
+    const [maxNumber, setMaxNumber] = useState<number>(0);
     const [state, setState] = useState<number>(minNumber)
     const [error, setError] = useState<string>("")
 
     const [mode,setMode] = useState<boolean>(false);
 
+   let a=3;
+   let b = 4;
+    useEffect(() => {
+        if(maxNumber <= minNumber){
+            setError("hello")
+        }
+        if(maxNumber > minNumber){
+            setError("yes")
+        }
+    })
 
     const incCounter = () => {
 
@@ -38,17 +48,10 @@ function App() {
 
     const minNum = (e: ChangeEvent<HTMLInputElement>) => {
 
+        setMode(false);
 
 
 
-        if(minNumber >= maxNumber -1) {
-            setMode(false)
-            setError("inCorrectValue")
-        }
-        else if(minNumber < maxNumber) {
-            setMode(false)
-            setError("SetValue")
-        }
         setMinNumber(+e.currentTarget.value)
 
     }
@@ -56,23 +59,17 @@ function App() {
     const maxNum = (e: ChangeEvent<HTMLInputElement>) => {
         setMode(false);
 
-        if(maxNumber <= minNumber ) {
-            setMode(false)
-            setError("inCorrectValue")
-        }
-        else if(maxNumber > minNumber) {
-            setMode(false)
-            setError("SetValue")
-        }
+
         setMaxNumber(+e.currentTarget.value)
     }
     const setNumbers = () => {
 
-        if(minNumber > -1) {
-
+        if(minNumber > 0 || minNumber !== maxNumber) {
+            setMode(true)
             setState(minNumber)
         }
         if(minNumber === maxNumber) {
+            setMode(false)
 
 
 
