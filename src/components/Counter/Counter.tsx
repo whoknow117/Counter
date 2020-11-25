@@ -2,19 +2,30 @@ import React, {ChangeEvent} from 'react'
 import classes from './Counter.module.scss';
 
 type PropsType = {
-    mode: boolean
+    setMode: (mode: boolean) => void
     minNum: number
     maxNum: number
     error: string
     state: number
+    minActive: boolean
+    maxActive: boolean
+    setError: (error: string) => void
+    mode: boolean
 }
 
 
-const Counter: React.FC<PropsType> = ({state,error,maxNum,minNum,mode}) => {
+const Counter: React.FC<PropsType> = ({mode,setError,setMode,minActive,maxActive,state,error,maxNum,minNum }) => {
+    // if (minActive === false && maxActive === true || minActive === false || maxActive === true || minActive === true || maxActive == false) {
+    //     setMode(false)
+    // } else if (minActive === false && maxActive === false) {
+    //     setMode(true);
+    // }
+
+    {(minNum >= 0 && maxNum !== minNum && maxNum > minNum) ? setError("set value") : setError("icorrectValue") }
 
     return <div className={classes.wrapper}>
         <div className={state === maxNum ? classes.error : classes.inc}>
-            { mode   ? state : <span>{error}</span> }
+            {minActive === false && maxActive === false  ? state : error}
             {/*{ error && error}*/}
         </div>
     </div>
