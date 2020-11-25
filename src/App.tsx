@@ -79,13 +79,13 @@ function App() {
         <div className="counter">
             <div className={classes.setNumbersBlock}>
                     <div>
-                        <input     value={maxNumber} onChange={maxNum} type="number"/> MAX
-                        <input  value={minNumber} onChange={minNum} type="number"/> MIN
+                        <input  className={maxNumber === minNumber ||  maxNumber < 0 ? classes.errorInput : ''}    value={maxNumber} onChange={maxNum} type="number"/> MAX
+                        <input   className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''} value={minNumber} onChange={minNum} type="number"/> MIN
                         {/*className={minNumber >= maxNumber ||  minNumber < 0 ? classes.errorInput : ''}*/}
                         {/*className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''}*/}
 
                     </div>
-                    <button disabled={minActive === false && maxActive === false}  onClick={setNumbers}>set</button>
+                    <button disabled={minActive === false && maxActive === false || maxNumber === minNumber || minNumber >= maxNumber}  onClick={setNumbers}>set</button>
             </div>
             <div className={classes.output}>
                 <Counter mode={mode}  setError={setError} setMode={setMode }  minActive={minActive} maxActive={maxActive} state={state} error={error} maxNum={maxNumber} minNum={minNumber} />
