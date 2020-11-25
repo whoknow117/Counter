@@ -13,12 +13,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 20px;
+  font-size: 10px;
   .error {
     color: red;
     font-size: inherit;
     background: #fff;
-    width: 40px;
+    width: 150px;
     height: 40px;
     display: block;
     border-radius: 50%;
@@ -26,13 +26,15 @@
     align-items: center;
     justify-content: center;
     transition: .1s ease-in-out;
+    font-size: 20px;
+
   }
   .inc {
 
     color: #000;
     font-size: inherit;
     background: #fff;
-    width: 50px;
+    width: 150px;
     height: 50px;
     border-radius: 50%;
     display: flex;

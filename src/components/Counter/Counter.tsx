@@ -21,11 +21,13 @@ const Counter: React.FC<PropsType> = ({mode,setError,setMode,minActive,maxActive
     //     setMode(true);
     // }
 
-    {(minNum >= 0 && maxNum !== minNum && maxNum > minNum) ? setError("set value") : setError("icorrectValue") }
+    {(minNum >= 0 && maxNum !== minNum && maxNum > minNum) ? setError("set value") : setError("Incorrect value!") }
 
     return <div className={classes.wrapper}>
         <div className={classes.inc}>
-            {minActive === false && maxActive === false  ? <span className={state === maxNum ? classes.error : ""}>{state}</span> : error}
+
+            {minActive === false && maxActive === false  ? <span className={state === maxNum ? classes.error : ""}>{state}</span> :
+                <span className={ error === "Incorrect value!" ? classes.error : ""}>{error}</span>}
             {/*{ error && error}*/}
         </div>
     </div>
