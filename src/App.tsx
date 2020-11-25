@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState, useEffect } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import Counter from "./components/Counter/Counter";
 import CounterButtons from "./components/CounterButtons/CounterButtons";
@@ -10,16 +10,29 @@ export type ComparrisonType = true | false
 function App() {
 
 
-    const [minNumber, setMinNumber] = useState<number>(0);
-    const [maxNumber, setMaxNumber] = useState<number>(0);
+    const minVal = localStorage.getItem("minValue")
+    const minimalVal:number = Number(minVal)
+    const maxVal  = localStorage.getItem("maxValue")
+    const maximumVal: number = Number(maxVal)
+
+
+
+    const [minNumber, setMinNumber] = useState<number>(minimalVal);
+    const [maxNumber, setMaxNumber] = useState<number>(maximumVal);
     const [state, setState] = useState<number>(0);
     const [error, setError] = useState<string>("Enter value!");
     const [minActive, setMinActive] = useState<ComparrisonType>(false);
     const [maxActive, setMaxActive] = useState<ComparrisonType>(false);
     const [mode, setMode] = useState<boolean>(false)
 
+    localStorage.setItem("minValue", minNumber.toString())
+
+    console.log(typeof minimalVal)
+    localStorage.setItem("maxValue", maxNumber.toString())
 
 // Function increment
+//     console.log(minVal)
+//     console.log(maxVal)
 
     const incCounter = () => {
         if (state < maxNumber) {
@@ -43,7 +56,6 @@ function App() {
     }
 
 
-
     const maxNum = (e: ChangeEvent<HTMLInputElement>) => {
         setMaxActive(true)
         setMaxNumber(+e.currentTarget.value)
@@ -53,10 +65,10 @@ function App() {
 
     const setNumbers = () => {
 
-        if(minNumber >= 0 && maxNumber > 0 && maxNumber > minNumber && maxNumber !== minNumber ) {
+        if (minNumber >= 0 && maxNumber > 0 && maxNumber > minNumber && maxNumber !== minNumber) {
 
-            setMaxActive( false)
-            setMinActive(  false)
+            setMaxActive(false)
+            setMinActive(false)
 
             console.log(maxActive)
             console.log(minActive)
@@ -65,7 +77,6 @@ function App() {
             console.log(minNumber)
 
         }
-
 
 
     }
@@ -78,18 +89,25 @@ function App() {
     return (
         <div className="counter">
             <div className={classes.setNumbersBlock}>
-                    <div>
-                        <input  className={maxNumber === minNumber ||  maxNumber < 0 ? classes.errorInput : ''}    value={maxNumber} onChange={maxNum} type="number"/> MAX
-                        <input   className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''} value={minNumber} onChange={minNum} type="number"/> MIN
-                        {/*className={minNumber >= maxNumber ||  minNumber < 0 ? classes.errorInput : ''}*/}
-                        {/*className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''}*/}
+                <div>
+                    <input className={maxNumber === minNumber || maxNumber < 0 ? classes.errorInput : ''}
+                           value={maxNumber} onChange={maxNum} type="number"/> MAX
+                    <input className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''}
+                           value={minNumber} onChange={minNum} type="number"/> MIN
+                    {/*className={minNumber >= maxNumber ||  minNumber < 0 ? classes.errorInput : ''}*/}
+                    {/*className={minNumber >= maxNumber || minNumber < 0 ? classes.errorInput : ''}*/}
 
-                    </div>
-                    <button disabled={minActive === false && maxActive === false || maxNumber === minNumber || minNumber >= maxNumber}  onClick={setNumbers}>set</button>
+                </div>
+                <button
+                    disabled={minActive === false && maxActive === false || maxNumber === minNumber || minNumber >= maxNumber}
+                    onClick={setNumbers}>set
+                </button>
             </div>
             <div className={classes.output}>
-                <Counter mode={mode}  setError={setError} setMode={setMode }  minActive={minActive} maxActive={maxActive} state={state} error={error} maxNum={maxNumber} minNum={minNumber} />
-                <CounterButtons state={state} minNum={minNumber} maxNum={maxNumber} resetCounter={resetCounter} incCounter={incCounter}/>
+                <Counter mode={mode} setError={setError} setMode={setMode} minActive={minActive} maxActive={maxActive}
+                         state={state} error={error} maxNum={maxNumber} minNum={minNumber}/>
+                <CounterButtons state={state} minNum={minNumber} maxNum={maxNumber} resetCounter={resetCounter}
+                                incCounter={incCounter}/>
             </div>
         </div>
     );
