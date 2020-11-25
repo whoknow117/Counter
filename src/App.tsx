@@ -53,7 +53,7 @@ function App() {
 
     const setNumbers = () => {
 
-        if(minNumber > 0 && maxNumber > 0 && maxNumber > minNumber && maxNumber !== minNumber ) {
+        if(minNumber >= 0 && maxNumber > 0 && maxNumber > minNumber && maxNumber !== minNumber ) {
 
             setMaxActive( false)
             setMinActive(  false)
